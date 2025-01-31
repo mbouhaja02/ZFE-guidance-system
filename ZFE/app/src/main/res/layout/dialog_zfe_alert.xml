@@ -1,0 +1,51 @@
+<!-- res/layout/dialog_zfe_alert.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal">
+
+    <!-- Icone, image ou illustration si besoin -->
+    <ImageView
+        android:id="@+id/ivZfeIcon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_warning" 
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Message principal -->
+    <TextView
+        android:id="@+id/tvZfeMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Le trajet passe dans la zone ZFE !"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"/>
+
+    <!-- Bouton 'Changer l’itinéraire' -->
+    <Button
+        android:id="@+id/btnChangeItineraire"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Changer l’itinéraire"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Bouton 'Trouver un parking' -->
+    <Button
+        android:id="@+id/btnFindParking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Trouver un parking"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Bouton 'Annuler' -->
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Annuler"/>
+
+</LinearLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialogLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- CheckBox : veut-il uniquement des Park-Relais ? -->
+    <CheckBox
+        android:id="@+id/checkBoxParkRelais"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Park-Relais uniquement"
+        android:checked="false" />
+
+    <!-- 4 SeekBars pour w1..w4 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Distance (w1)"/>
+    <SeekBar
+        android:id="@+id/seekBarW1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="25"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Places libres (w2)"/>
+    <SeekBar
+        android:id="@+id/seekBarW2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="25"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tarif (w3)"/>
+    <SeekBar
+        android:id="@+id/seekBarW3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="25"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Accès Transports (w4)"/>
+    <SeekBar
+        android:id="@+id/seekBarW4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="25"/>
+</LinearLayout>

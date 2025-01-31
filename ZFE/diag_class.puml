@@ -1,0 +1,199 @@
+@startuml
+
+!define RECTANGLE class
+!define INTERFACE interface
+
+' Définition des packages et classes
+
+package "com.example.smartintersections" {
+    RECTANGLE MainActivity {
+        - static final int LOCATION_REQUEST_CODE = 100
+        - String directionsApiKey
+        - MapController mapController
+        - LocationManager locationManager
+        - DataRepository dataRepository
+        - PreferencesManager preferencesManager
+        - RouteFetcher routeFetcher
+        - List<Intersection> intersectionList
+        - List<LatLng> routePoints
+        - List<Integer> notifiedIntersections
+        - ImageButton btnZoomIn
+        - ImageButton btnZoomOut
+        - ImageButton btnRoute
+        - EditText originInput
+        - EditText destinationInput
+        + onCreate(Bundle)
+        + setupUI()
+        + setupMap()
+        + setupZoomButtons()
+        + requestLocationPermission()
+        + onRequestPermissionsResult(int, String[], int[])
+        + onLocationReceived(Location)
+        + loadData()
+        + showMarkersAndCheckAlerts()
+        + checkProximityToCriticalIntersections(LatLng)
+        + checkForCriticalPointsOnRoute()
+        + triggerNotification(Intersection)
+        + searchTwoAddresses(String, String)
+        + onRouteFetched(List<LatLng>)
+        + testHardcodedRoute()
+        + createNotificationChannel()
+        + onDestroy()
+    }
+}
+
+package "com.example.smartintersections.map" {
+    RECTANGLE MapController {
+        - GoogleMap mMap
+        + MapController(GoogleMap)
+        + moveCameraToBordeaux()
+        + showUserPosition(LatLng)
+        + addIntersectionsMarkers(List<Intersection>)
+        + drawRoute(List<LatLng>)
+        + markOriginAndDestination(LatLng, LatLng)
+        + clearMap()
+        + zoomIn()
+        + zoomOut()
+    }
+}
+
+package "com.example.smartintersections.utils" {
+    RECTANGLE LocationManager {
+        - Context context
+        - LocationCallbackInterface locationCallbackInterface
+        - Location currentLocation
+        - FusedLocationProviderClient fusedLocationClient
+        - LocationCallback locationCallback
+        + LocationManager(Context, LocationCallbackInterface)
+        + requestUserLocation()
+        + getCurrentLocation(): Location
+        + stopLocationUpdates()
+        - setupLocationCallback()
+        - startLocationUpdates()
+    }
+    INTERFACE LocationCallbackInterface {
+        + onLocationReceived(Location)
+    }
+}
+
+package "com.example.smartintersections.data" {
+    RECTANGLE DataRepository {
+        - Context context
+        - ApiService apiService
+        - IntersectionDao intersectionDao
+        + DataRepository(Context)
+        + loadData(DataLoadCallback)
+        - fallbackToLocalData(DataLoadCallback)
+        - loadFromLocalJson(DataLoadCallback)
+    }
+    
+    INTERFACE DataRepository.DataLoadCallback {
+        + onDataLoaded(List<Intersection>)
+        + onDataLoadFailed()
+    }
+}
+
+package "com.example.smartintersections.data.local" {
+    RECTANGLE AppDatabase {
+        + abstract IntersectionDao intersectionDao()
+    }
+    
+    RECTANGLE IntersectionDao {
+        + void insertAll(List<Intersection>)
+        + List<Intersection> getAll()
+    }
+}
+
+package "com.example.smartintersections.data.models" {
+    RECTANGLE Intersection {
+        + int id
+        + String name
+        + double latitude
+        + double longitude
+        + String type
+    }
+    
+    RECTANGLE ApiResponse {
+        + List<Result> results
+        + List<Result> getResults()
+    }
+    
+    RECTANGLE ApiResponse.Result {
+        + String nom_de_la_manifestation
+        + String categorie_de_la_manifestation
+        + CoordonneesGeographiques coordonnees_geographiques
+        + String getNom_de_la_manifestation()
+        + String getCategorie_de_la_manifestation()
+        + CoordonneesGeographiques getCoordonnees_geographiques()
+    }
+    
+    RECTANGLE ApiResponse.CoordonneesGeographiques {
+        + double lat
+        + double lon
+        + double getLat()
+        + double getLon()
+    }
+}
+
+package "com.example.smartintersections.data.network" {
+    INTERFACE ApiService {
+        + Call<ApiResponse> getData()
+    }
+    
+    RECTANGLE RetrofitClient {
+        + static ApiService getApiService()
+    }
+}
+
+package "com.example.smartintersections.data.prefs" {
+    RECTANGLE PreferencesManager {
+        - SharedPreferences sharedPreferences
+        + PreferencesManager(Context)
+        + int getAlertDistance()
+        + void setAlertDistance(int)
+    }
+}
+
+package "com.example.smartintersections.route" {
+    RECTANGLE RouteFetcher {
+        - String directionsApiKey
+        - RouteCallback callback
+        + RouteFetcher(String, RouteCallback)
+        + void fetchDirections(LatLng, LatLng)
+        - void postResult(List<LatLng>)
+        - List<LatLng> parseDirectionsResponse(String)
+        - List<LatLng> decodePoly(String)
+    }
+    
+    INTERFACE RouteFetcher.RouteCallback {
+        + onRouteFetched(List<LatLng>)
+    }
+    
+    RECTANGLE RouteUtils {
+        + static double getMinDistanceToRoute(LatLng, List<LatLng>)
+        + static double distancePointToSegment(LatLng, LatLng, LatLng)
+        + static double[] latLngToDoubleArr(LatLng)
+    }
+}
+
+' Relations entre les classes
+
+MainActivity --> MapController
+MainActivity --> LocationManager
+MainActivity --> DataRepository
+MainActivity --> PreferencesManager
+MainActivity --> RouteFetcher
+
+LocationManager --> LocationCallbackInterface
+
+DataRepository --> ApiService
+DataRepository --> IntersectionDao
+DataRepository --> DataRepository.DataLoadCallback
+
+RetrofitClient ..|> ApiService
+
+AppDatabase --> IntersectionDao
+
+RouteFetcher --> RouteFetcher.RouteCallback
+
+@enduml

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- Fragment pour la carte Google Maps (en fond), occupe tout l'écran -->
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <!-- Barre de recherche "Départ" + Bouton "GPS" à droite -->
+    <LinearLayout
+        android:id="@+id/layoutDeparture"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- CardView pour le champ "Départ" -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardOrigin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+
+            <fragment
+                android:id="@+id/autocomplete_origin"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="FragmentTagUsage"/>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Petit bouton "Utiliser ma position" -->
+        <Button
+            android:id="@+id/btnUseMyLocation"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/ic_location"
+            android:contentDescription="Utiliser ma position"
+            android:padding="8dp" />
+
+    </LinearLayout>
+
+    <!-- Barre de recherche "Destination", placée juste en dessous de layoutDeparture -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardDestination"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintTop_toBottomOf="@id/layoutDeparture"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <fragment
+            android:id="@+id/autocomplete_destination"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="FragmentTagUsage" />
+    </androidx.cardview.widget.CardView>
+
+    <!-- Bouton Ma Localisation (en bas à droite) -->
+    <Button
+        android:id="@+id/btnGoToMyLocation"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/ic_location"
+        android:backgroundTint="@color/colorPrimary"
+        android:contentDescription="Ma Localisation"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Bouton Find Parking (en bas à gauche) -->
+    <Button
+        android:id="@+id/btnFindParking"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_button"
+        android:text="Find Parking"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Bouton Get Directions (entre Find Parking et Ma Localisation) -->
+    <Button
+        android:id="@+id/btnGetDirections"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/ic_search"
+        android:backgroundTint="@color/colorAccent"
+        android:contentDescription="Itinéraire"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnFindParking"
+        app:layout_constraintEnd_toStartOf="@id/btnGoToMyLocation"
+        app:layout_constraintHorizontal_chainStyle="packed" />
+
+    <!-- Bouton Zoom In (en haut à droite, sous la barre destination) -->
+    <Button
+        android:id="@+id/btnZoomIn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/ic_zoom_in_i"
+        android:backgroundTint="@color/colorPrimary"
+        android:contentDescription="Zoomer"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@id/cardDestination"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Bouton Zoom Out (juste en dessous du Zoom In) -->
+    <Button
+        android:id="@+id/btnZoomOut"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/ic_zoom_out_i"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:contentDescription="Dézoomer"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@id/btnZoomIn"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Bouton Parkings (en haut à gauche, sous la barre destination) -->
+    <Button
+        android:id="@+id/btnParkings"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_button"
+        android:text="Parkings"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/cardDestination"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Bouton Préférences (sous ZoomOut, en haut à droite) -->
+    <Button
+        android:id="@+id/btnPreferences"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ic_pref"
+        android:backgroundTint="@color/colorAccent"
+        android:contentDescription="Préférences"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@id/btnZoomOut"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- CardView pour Alerte ZFE (en bas, centré) -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/zfeAlertCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="60dp"
+        app:cardCornerRadius="20dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/zfeAlertText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="Situation ZFE : Aucun risque"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+    </androidx.cardview.widget.CardView>
+
+    <!-- TextView de statut (juste un message de debug ou info) -->
+    <TextView
+        android:id="@+id/statusTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/btnParkings"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Vue Speedometer (intégrée directement dans ConstraintLayout) -->
+    <com.example.smartintersections.SpeedometerView
+        android:id="@+id/speedometerView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="550dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

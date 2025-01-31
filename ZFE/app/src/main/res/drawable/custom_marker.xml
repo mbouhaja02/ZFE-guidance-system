@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Fond du marqueur -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#FF4081" /> <!-- Couleur de fond -->
+            <stroke
+                android:width="2dp"
+                android:color="#FFFFFF" /> <!-- Bordure blanche -->
+        </shape>
+    </item>
+
+    <!-- Icône ou contenu du marqueur -->
+    <item
+        android:gravity="center">
+        <bitmap
+            android:src="@drawable/ic_map_custom"
+            android:gravity="center" />
+    </item>
+</layer-list>

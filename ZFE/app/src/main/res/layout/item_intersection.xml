@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/intersection_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Nom de l'Intersection"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/intersection_type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Type d'Intersection"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/intersection_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/intersection_distance"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/intersection_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Distance"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/intersection_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

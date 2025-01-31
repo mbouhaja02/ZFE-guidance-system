@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ce drawable définit un fond avec une couleur de base et des coins arrondis.
+     Vous pouvez également utiliser un <selector> pour définir des états différents (pressed, focused, etc.). -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- État pressé -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#B2DFDB" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+    <!-- État par défaut -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#009688" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+</selector>

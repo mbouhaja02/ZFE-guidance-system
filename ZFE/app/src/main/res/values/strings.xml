@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">SmartIntersections</string>
+    <string name="app_logo">Welcome to Smart Intersections</string>
+    <string-array name="filter_options">
+        <item>Tous</item>
+        <item>Travaux</item>
+        <item>Déviation</item>
+        <item>Autres</item>
+    </string-array>
+    <string name="zoom_in">Zoom In</string>
+    <string name="zoom_out">Zoom Out</string>
+</resources>
+
+

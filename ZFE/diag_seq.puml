@@ -1,0 +1,45 @@
+@startuml
+actor Utilisateur
+
+participant "MainActivity" as MA
+participant "Geocoder" as Geocoder
+participant "MapController" as MC
+participant "RouteFetcher" as RF
+participant "Google Directions API" as GDA
+participant "LocationManager" as LM
+participant "DataRepository" as DR
+participant "IntersectionDao" as ID
+participant "PreferencesManager" as PM
+participant "RouteUtils" as RU
+participant "NotificationManagerCompat" as NMC
+
+Utilisateur -> MA : Saisir Adresse Origine et Destination
+MA -> MA : searchTwoAddresses(origin, destination)
+MA -> Geocoder : getFromLocationName(origin + ", Bordeaux, France")
+Geocoder --> MA : Address originAddr
+MA -> Geocoder : getFromLocationName(destination + ", Bordeaux, France")
+Geocoder --> MA : Address destAddr
+MA -> MC : markOriginAndDestination(origin, destination)
+MA -> RF : fetchDirections(origin, destination)
+RF -> GDA : HTTP GET /directions/json?origin=lat,lng&destination=lat,lng&key=API_KEY
+GDA --> RF : Réponse JSON avec itinéraire
+RF --> MA : onRouteFetched(routePoints)
+MA -> MC : drawRoute(routePoints)
+MA -> LM : getCurrentLocation()
+LM --> MA : Location userLocation
+MA -> DR : loadData()
+DR -> ID : getAll()
+ID --> DR : List<Intersection>
+DR --> MA : onDataLoaded(intersections)
+MA -> MC : addIntersectionsMarkers(intersections)
+loop Surveillance Position
+    LM -> MA : onLocationReceived(location)
+    MA -> MC : showUserPosition(userPos)
+    MA -> RU : getMinDistanceToRoute(interPos, routePoints)
+    RU --> MA : distance
+    alt distance <= alertDistance
+        MA -> NMC : notify(intersection)
+    end
+end
+
+@enduml
